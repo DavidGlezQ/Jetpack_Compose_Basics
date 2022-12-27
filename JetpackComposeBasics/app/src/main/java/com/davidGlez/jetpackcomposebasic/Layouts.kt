@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 
 /**
@@ -31,7 +32,7 @@ private fun LayoutPreview() {
 * */
 @Composable
 fun NewConstraintLayout() {
-    ConstraintLayout {
+    /*ConstraintLayout {
         //Identificadores de todos los componentes
         val (normalA, normalF, filledF, container) = createRefs()
         //Esto es equivalente a layout_constraintTop_toTopOf="parent"
@@ -48,7 +49,35 @@ fun NewConstraintLayout() {
             TextGlobal1()
             TextGlobal2()
         }
+    }*/
+
+    ConstraintLayout {
+        val (normalA, normalF, filledF, container) = createRefs()
+        val startGuideline = createGuidelineFromStart(0.25f) //valor de 0 a 100, 0 a 1
+        val endGuideline = createGuidelineFromEnd(0.5f)
+        val topGuideline = createGuidelineFromTop(16.dp)
+        val bottomGuideline = createGuidelineFromTop(32.dp)
+        Text(text = "normalA", modifier = Modifier.constrainAs(normalA){
+            top.linkTo(topGuideline)
+            start.linkTo(filledF.end)
+        })
+        Text(text = "normalF", modifier = Modifier.constrainAs(normalF){
+            top.linkTo(normalA.bottom)
+            start.linkTo(normalA.start)
+        })
+        TextGlobal2(modifier = Modifier.constrainAs(filledF){
+            top.linkTo(normalF.top)
+            start.linkTo(startGuideline)
+        })
+        Column(modifier = Modifier.constrainAs(container){
+            top.linkTo(normalF.bottom)
+            start.linkTo(normalA.start)
+        }) {
+            TextGlobal1()
+            TextGlobal2()
+        }
     }
+
 }
 @Composable
 fun NewLinearLayout() {
