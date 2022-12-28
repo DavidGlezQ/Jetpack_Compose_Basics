@@ -24,7 +24,9 @@ class MainActivity : ComponentActivity() { //Ahora hereda de ComponentActivity
                     //Greeting("Android")
                     //NewFrameLayout()
                     //NewLinearLayout()
-                    NewConstraintLayout()
+                    //NewConstraintLayout()
+                    //NewSize()
+                    NewClick()
                 }
             }
         }
