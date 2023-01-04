@@ -1,13 +1,15 @@
 package com.davidGlez.jetpackcomposebasic
 
-import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
+import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -16,12 +18,36 @@ import androidx.compose.ui.unit.dp
 * marcado como composable.
 * Definir caracteristicas basicas*/
 
-@Preview(showBackground = true, showSystemUi = true, backgroundColor = 0xFFe1e1e1)
+@Preview(showBackground = true, showSystemUi = false, backgroundColor = 0xFFe1e1e1,
+    widthDp = 650, heightDp = 320) //device = Devices.
 @Composable
 private fun ModifierPreview() {
     //NewSpacing()
     //NewSize()
-    NewClick()
+    //NewClick()
+    NewResponsive()
+}
+
+@Composable
+fun NewResponsive(painterRes: Int = R.drawable.ic_launcher_background) {
+    BoxWithConstraints {
+        Card(modifier = Modifier
+            .fillMaxSize()
+            .padding(if(minWidth < 720.dp) 8.dp else 32.dp)) {
+            if (minWidth > 600.dp) { //isTablet
+                Row(modifier = Modifier.padding(8.dp)) {
+                    Image(painter = painterResource(id = painterRes), contentDescription = null)
+                    TextGlobal2(modifier = Modifier.weight(1f))
+                    TextGlobal1()
+                }
+            } else { //isPhone
+                Column(modifier = Modifier.padding(8.dp)) {
+                    TextGlobal2(modifier = Modifier.fillMaxWidth())
+                    TextGlobal1()
+                }
+            }
+        }
+    }
 }
 
 @Composable
